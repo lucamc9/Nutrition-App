@@ -60,8 +60,14 @@ class Meal:
     def __str__(self):
         return self.name
 
+    def copy(self):
+        return self
+
     def add_ingredient(self, ingredient):
         self.ingredient_list.append(ingredient)
+
+    def add_ingredient_raw(self, ingredient, quantity):
+        self.ingredient_list.append(self.get_ingredient((ingredient, quantity)))
 
     def get_db(self):
         nutrition_csv = pd.read_csv('nutrition.csv', header=None, sep='\t')
@@ -125,6 +131,9 @@ class Day:
         self.name = name
         self.meal_list = meal_list
 
+    def __str__(self):
+        return self.name
+
     def get_total_nutrition(self):
         if self.meal_list:
             total_nutrition = np.zeros(self.meal_list[0].get_nutrition().shape[0])
@@ -138,4 +147,21 @@ class Day:
     def get_meal_list(self):
         return self.meal_list
 
-   # def get_total_statistics(self):
+    def print_nutrition(self):
+        print('|' + self.name + '|' + '\n')
+        for meal in self.get_meal_list():
+            meal_nutri = meal.get_nutrition().tolist()
+            print(meal.__str__())
+            print('--------')
+            print('kcal: {0:.2f}, protein: {1:.2f}, carbs: {2:.2f}, fat: {3:.2f} \n'.format(meal_nutri[0],
+                                                                                         meal_nutri[1],
+                                                                                         meal_nutri[2],
+                                                                                         meal_nutri[3]))
+
+        total_nutri = self.get_total_nutrition().tolist()
+        print('Total:')
+        print('----------')
+        print('kcal: {0:.2f}, protein: {1:.2f}, carbs: {2:.2f}, fat: {3:.2f} \n'.format(total_nutri[0],
+                                                                                    total_nutri[1],
+                                                                                    total_nutri[2],
+                                                                                    total_nutri[3]))
