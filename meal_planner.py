@@ -147,8 +147,16 @@ class Day:
     def get_meal_list(self):
         return self.meal_list
 
+    # def get_statistics(self):
+    #     nutrition_percent = {}
+    #     total_nutrition = self.get_total_nutrition()
+    #     for meal in self.meal_list:
+    #         for ingredient in meal.get_ingredient_list():
+
+
     def print_nutrition(self):
-        print('|' + self.name + '|' + '\n')
+        print(self.name)
+        print(len(self.name)*'#' + '\n')
         for meal in self.get_meal_list():
             meal_nutri = meal.get_nutrition().tolist()
             print(meal.__str__())
@@ -165,3 +173,9 @@ class Day:
                                                                                     total_nutri[1],
                                                                                     total_nutri[2],
                                                                                     total_nutri[3]))
+    def print_statistics(self):
+        print('Top 3 Ingredients per Macro:')
+        print('----------------------------' + '\n')
+        statistics = self.get_statistics()
+        for key, value in statistics.items():
+            print(key + ': ' + value + '\n')
