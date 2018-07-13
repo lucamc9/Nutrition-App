@@ -19,6 +19,15 @@ The database is a csv file separated by tabs ('\t') with the following format:
 <Name> <Measurement> <Quantity> <kcal> <protein> <carbs> <fat>
 
 In the case of the keto-nutrition.csv there is an extra column <fibre>
+
+-- Ingredients format
+[('Ingredient_1', Quantity_1), ('Ingredient_2', Quantity_2), ..., ('Ingredient_N', Quantity_N)]
+
+-- Meal format
+Meal(Name, Ingredients)
+
+-- Day format
+Day(Name, Meal_List)
 '''
 
 # breakfast_ingredients = [('EggWhite', 5),
