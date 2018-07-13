@@ -54,30 +54,46 @@ dinner_2 = Meal('Dinner', dinner_ingredients_2)
 day_20_4 = Day('20/4/18', [breakfast_2, lunch_2, dinner_2])
 
 # New training plan
-wrap = [('Tortilla', 2),
-        ('ChickenBreast', 300),
-        ('Lettuce', 3),
-        ('Cucumber', 0.5),
-        ('Hummus', 80),
-        ('Tomatoes', 2)]
-breakfast_weights = Meal('Breakfast', breakfast_ingredients_1)
-breakfast_weights.remove_ingredient('BrownBread')
-breakfast_weights.add_ingredient_raw('ProteinShake', 1)
-dinner_weights = Meal('Dinner', wrap)
-weights_day = Day('Weight Lifting', [breakfast_weights, dinner_weights])
+# wrap = [('Tortilla', 2),
+#         ('ChickenBreast', 300),
+#         ('Lettuce', 3),
+#         ('Cucumber', 0.5),
+#         ('Hummus', 80),
+#         ('Tomatoes', 2)]
+# breakfast_weights = Meal('Breakfast', breakfast_ingredients_1)
+# breakfast_weights.remove_ingredient('BrownBread')
+# breakfast_weights.add_ingredient_raw('ProteinShake', 1)
+# dinner_weights = Meal('Dinner', wrap)
+# weights_day = Day('Weight Lifting', [breakfast_weights, dinner_weights])
+#
+#
+# breakfast_thai = Meal('Breakfast', breakfast_ingredients_1)
+# breakfast_thai.remove_ingredient('BrownBread')
+# dinner_thai = Meal('Dinner', dinner_ingredients_1)
+# dinner_thai.add_ingredient_raw('Tuna', 120)
+# dinner_thai.add_ingredient_raw('BrownBread', 2)
+# thai_day = Day('Thai Training', [breakfast_thai, dinner_thai])
+#
+#
+#
+#
+# new_routine = [weights_day, thai_day]
+#
+# for day in new_routine:
 
+# Summer 2018 dinner
+dinner_18_ingr = [('Huel', 125),
+            ('Blueberries', 33),
+            ('Raspberries', 33),
+            ('Blackberries', 50),
+            ('Banana', 1),
+            ('SoyMilk', 300),
+            ('Almond', 5),
+            ('Pecan', 5),
+            ('Raisins', 14),
+            ('WeetabixProtein', 2),
+            ('Apple', 1)]
+dinner_18 = Meal('Dinner', dinner_18_ingr)
+day_18 = Day('Summer 18', [dinner_18])
 
-breakfast_thai = Meal('Breakfast', breakfast_ingredients_1)
-breakfast_thai.remove_ingredient('BrownBread')
-dinner_thai = Meal('Dinner', dinner_ingredients_1)
-dinner_thai.add_ingredient_raw('Tuna', 120)
-dinner_thai.add_ingredient_raw('BrownBread', 2)
-thai_day = Day('Thai Training', [breakfast_thai, dinner_thai])
-
-
-
-
-new_routine = [weights_day, thai_day]
-
-for day in new_routine:
-    day.print_nutrition()
+day_18.print_nutrition()
