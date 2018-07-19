@@ -5,8 +5,8 @@ Mushrooms	gr	100	22.0	3.1	3.3	0.3	1.0
 Onion	ind	1	60.0	1.7	14.0	0.2	2.6
 CherryTomatoes	gr	150	25.0	1.0	6.0	0.0	1.1
 SoyMilk	gr	100	39.0	3.0	2.5	1.8	0.5
-Almond	ind	1	7.0	0.3	0.3	0.6	0.1
-Pecan	ind	1	10.0	0.13	0.2	1.07	0.14
+Almonds	ind	1	7.0	0.3	0.3	0.6	0.1
+Pecans	ind	1	10.0	0.13	0.2	1.07	0.14
 Oil	ind	1	134.85	0.0	0.0	15.0	0.0
 Blueberries	gr	100	57.0	0.7	14.0	0.3	2.4
 Blackberries	gr	100	43.0	1.0	10.0	0.0	5.0
@@ -17,3 +17,6 @@ Tomatoes	ind	1	22.0	1.1	4.8	0.2	1.5
 Cucumber	ind	1	47.0	2.0	11.0	0.3	1.5
 Lettuce	gr	100	14.0	0.9	3.0	0.1	1.2
 ProteinShake	ind	1	110.0	24.2	1.3	0.2	0.0
+GreekYoghurt	gr	240	338.4	19.7	8.4	24 	0
+Mustard	gr	15	9	0.6	0.9	0.5	0.6
+CheddarCheese	gr	100	402	25	1.3	33	0
