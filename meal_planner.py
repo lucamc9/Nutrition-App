@@ -52,11 +52,15 @@ class Ingredient:
 
 class Meal:
 
-    def __init__(self, name, ingredient_list=None, is_keto=False):
+    def __init__(self, name, ingredient_list=None, is_keto=False, exclude=None):
         self.name = name
         self.is_keto = is_keto
         self.ingredient_db = self.get_db()
-        self.ingredient_list = [self.get_ingredient(x) for x in ingredient_list]
+        if exclude is not None:
+            ingredient_list = self.exclude_ingredients(exclude, ingredient_list)
+            self.ingredient_list = [self.get_ingredient(x) for x in ingredient_list]
+        else:
+            self.ingredient_list = [self.get_ingredient(x) for x in ingredient_list]
 
     def __str__(self):
         return self.name
@@ -131,6 +135,14 @@ class Meal:
 
     def remove_ingredient(self, ingredient):
         self.ingredient_list = [x for x in self.ingredient_list if x.get_name() != ingredient]
+
+    def exclude_ingredients(self, exclude_list, ingredient_list):
+        for ingr in exclude_list:
+            if isinstance(ingr, str):
+                ingredient_list = [x for x in ingredient_list if x[0] != ingr]
+            else:
+                ingredient_list = [(x[0], x[1]-ingr[1]) if x[0] == ingr[0] else x for x in ingredient_list]
+        return ingredient_list
 
     def get_high_macros(self):
         kcals = []
