@@ -22,12 +22,14 @@ lunch_ingr_2 = [('RoastChicken', 0.25),
 ('Oil', 2)]
 
 dinner_ingr_2 = [('RoastChicken', 0.25),
-('EdamCheese', 50),
+('EmmentalCheese', 50),
 ('Spinach', 50),
 ('SunflowerSeeds', 15),
 ('Oil', 2),
-('Pistachios', 25),
-('GreekYoghurt', 170)]
+('Salami', 23),
+('Pistachios', 15),
+('GreekYoghurt', 170),
+('Blueberries', 25)]
 
 # 3 Special work day (1)
 lunch_ingr_3 = [('RumpSteak', 252),

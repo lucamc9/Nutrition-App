@@ -163,10 +163,11 @@ class Meal:
 
 class Day:
 
-    def __init__(self, name, meal_list=None, is_keto=False):
+    def __init__(self, name, meal_list=None, is_keto=False, show_price=False):
         self.name = name
         self.meal_list = meal_list
         self.is_keto = is_keto or meal_list[0].is_keto
+        self.show_price = show_price
 
     def __str__(self):
         return self.name
@@ -197,6 +198,8 @@ class Day:
         total_nutri = self.get_total_nutrition().tolist()
         self.print_nutrition('Total', total_nutri)
         self.print_percentages(total_nutri)
+        if self.show_price:
+            self.print_price()
 
     def print_nutrition(self, title, nutrition_list):
         if self.is_keto:
@@ -257,3 +260,21 @@ class Day:
         statistics = self.get_statistics()
         for key, value in statistics.items():
             print(key + ': ' + value + '\n')
+
+    def print_price(self):
+        total_price = 0
+        price_csv = pd.read_csv('keto-price.csv', header=None, sep='\t')
+        print('Price')
+        print('-----')
+        for meal in self.get_meal_list():
+            meal_price = 0
+            for ingr in meal.get_ingredient_list():
+                if ingr.get_quantity() < 0:
+                    quantity_prop = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,1].values[0] * ingr.get_quantity()
+                else:
+                    quantity_prop = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,1].values[0] / ingr.get_quantity()
+                price = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,2].values[0] / quantity_prop
+                meal_price += price
+            print('{0}: £{1:.2f}'.format(meal.__str__(), meal_price))
+            total_price += meal_price
+        print('Total: £{0:.2f}'.format(total_price))
