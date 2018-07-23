@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from operator import add
 
 class Macro:
 
@@ -133,6 +134,20 @@ class Meal:
             nutrition += np.array(macro_values)
         return nutrition
 
+    def get_micros(self):
+        micros_csv = pd.read_csv('keto-micros.csv', header=None, sep='\t')
+        sodium = 0
+        potassium = 0
+        magnesium = 0
+        omega3 = 0
+        for ingredient in self.ingredient_list:
+            sodium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,8].values[0])
+            potassium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,9].values[0])
+            magnesium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,10].values[0])
+            omega3 += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,11].values[0])
+        return [sodium, potassium, magnesium, omega3]
+
+
     def remove_ingredient(self, ingredient):
         self.ingredient_list = [x for x in self.ingredient_list if x.get_name() != ingredient]
 
@@ -163,11 +178,12 @@ class Meal:
 
 class Day:
 
-    def __init__(self, name, meal_list=None, is_keto=False, show_price=False):
+    def __init__(self, name, meal_list=None, is_keto=False, show_price=False, show_micros=False):
         self.name = name
         self.meal_list = meal_list
         self.is_keto = is_keto or meal_list[0].is_keto
         self.show_price = show_price
+        self.show_micros = show_micros
 
     def __str__(self):
         return self.name
@@ -190,14 +206,21 @@ class Day:
 
         print(self.name)
         print(len(self.name)*'#' + '\n')
+        total_micros = [0, 0, 0, 0]
         for meal in self.get_meal_list():
             meal_nutri = meal.get_nutrition().tolist()
             self.print_nutrition(meal.__str__(), meal_nutri)
             self.print_percentages(meal_nutri)
+            if self.show_micros:
+                meal_micros = meal.get_micros()
+                total_micros = list(map(add, meal_micros, total_micros) )
+                self.print_micros(meal_micros)
 
         total_nutri = self.get_total_nutrition().tolist()
         self.print_nutrition('Total', total_nutri)
         self.print_percentages(total_nutri)
+        if self.show_micros:
+            self.print_micros(total_micros)
         if self.show_price:
             self.print_price()
 
@@ -219,6 +242,12 @@ class Day:
                                                       nutrition_list[1],
                                                       nutrition_list[2],
                                                       nutrition_list[3]))
+    def print_micros(self, micros_list):
+        print('sodium: {0:.2f}mg, potassium: {1:.2f}mg, '
+        'magnesium: {2:.2f}mg, omega3: {3:.2f}mg\n'.format(micros_list[0],
+                                                          micros_list[1],
+                                                          micros_list[2],
+                                                          micros_list[3]))
 
     def print_percentages(self, nutrition_list):
         if self.is_keto:
@@ -233,7 +262,7 @@ class Day:
             fats_percent = fats * 9 * 100 / kcal
             net_carbs_percent = net_carbs * 4 * 100 / kcal
             print('kcal: {0:.2f}%, protein: {1:.2f}%, carbs: {2:.2f}%, '
-            'fats: {3:.2f}%, net_carbs: {4:.2f}%\n'.format(100,
+            'fats: {3:.2f}%, net_carbs: {4:.2f}%'.format(100,
                                                       protein_percent,
                                                       carbs_percent,
                                                       fats_percent,
