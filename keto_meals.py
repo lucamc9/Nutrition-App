@@ -9,8 +9,10 @@ lunch_ingr_1 = [('Egg', 4),
 ('SunflowerSeeds', 25),
 ('CashewsSalted', 50)]
 
-dinner_ingr_1 = [('TunaSunOil', 2),
- ('Avocado', 1)]
+dinner_ingr_1 = [('TunaSunOil', 1),
+('Avocado', 1),
+('Pistachios', 15),
+('EmmentalCheese', 50)]
 
 # 2 Saturday & Sundays
 lunch_ingr_2 = [('RoastChicken', 0.25),
