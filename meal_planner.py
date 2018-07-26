@@ -6,7 +6,7 @@ class Macro:
 
     def __init__(self, name, value=None):
         self.name = name
-        self.value = value
+        self.value = float(value)
 
     def __str__(self):
         return self.name
@@ -18,6 +18,8 @@ class Macro:
         self.value = value
 
     def update_value(self, factor):
+        print(type(self.value))
+        print(type(factor))
         self.value = self.value * factor
         return self
 
@@ -26,7 +28,7 @@ class Ingredient:
     def __init__(self, name, unit, quantity, macro_list):
         self.name = name
         self.unit = unit
-        self.quantity = quantity
+        self.quantity = int(quantity)
         self.macro_list = macro_list
 
     def __str__(self):
@@ -77,10 +79,10 @@ class Meal:
 
     def get_db(self):
         if self.is_keto:
-            nutrition_csv = pd.read_csv('keto-nutrition.csv', header=None, sep='\t')
+            nutrition_csv = pd.read_csv('keto-micros.csv', header=None, sep='\t')
             ingredient_db = []
             N, D = nutrition_csv.shape
-            for idx in range(N):
+            for idx in range(1, N):
                 name = nutrition_csv[0][idx]
                 unit = nutrition_csv[1][idx]
                 quantity = nutrition_csv[2][idx]
@@ -88,7 +90,7 @@ class Meal:
                 protein = Macro('protein', nutrition_csv[4][idx])
                 carbs = Macro('carbs', nutrition_csv[5][idx])
                 fat =  Macro('fat', nutrition_csv[6][idx])
-                net_carbs = Macro('net_carbs', nutrition_csv[5][idx] - nutrition_csv[7][idx])
+                net_carbs = Macro('net_carbs', float(nutrition_csv[5][idx]) - float(nutrition_csv[7][idx]))
                 macro_list = [kcal, protein, carbs, fat, net_carbs]
                 ingredient = Ingredient(name, unit, quantity, macro_list)
                 ingredient_db.append(ingredient)
@@ -141,10 +143,11 @@ class Meal:
         magnesium = 0
         omega3 = 0
         for ingredient in self.ingredient_list:
-            sodium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,8].values[0])
-            potassium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,9].values[0])
-            magnesium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,10].values[0])
-            omega3 += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,11].values[0])
+            factor = ingredient.get_quantity() / float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,2].values[0])
+            sodium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,8].values[0])*factor
+            potassium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,9].values[0])*factor
+            magnesium += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,10].values[0])*factor
+            omega3 += float(micros_csv[micros_csv.iloc[:, 0] == ingredient.get_name()].iloc[:,11].values[0])*factor
         return [sodium, potassium, magnesium, omega3]
 
 
@@ -221,6 +224,7 @@ class Day:
         self.print_percentages(total_nutri)
         if self.show_micros:
             self.print_micros(total_micros)
+            print('Micros goals: sodium: [3000, 5000], potassium: +47000, magnesium: +400mg')
         if self.show_price:
             self.print_price()
 

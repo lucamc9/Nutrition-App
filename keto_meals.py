@@ -2,17 +2,23 @@ from meal_planner import *
 
 # 1 Standard work day
 lunch_ingr_1 = [('Egg', 4),
-('ParmesanCheese', 73),
+('EmmentalCheese', 50),
 ('Spinach', 50),
 ('Kale', 50),
 ('Oil', 2),
 ('SunflowerSeeds', 25),
-('CashewsSalted', 50)]
+('CashewsSalted', 50),
+('AlmondsSalted', 50),
+('Salt', 1)]
 
 dinner_ingr_1 = [('TunaSunOil', 1),
-('Avocado', 1),
+('Avocado', 340),
 ('Pistachios', 15),
-('EmmentalCheese', 50)]
+('SunflowerSeeds', 15),
+('Oil', 1),
+('AlmondsSalted', 50),
+('ParmesanCheese', 50),
+('Salt', 0.8)]
 
 # 2 Saturday & Sundays
 lunch_ingr_2 = [('RoastChicken', 0.25),
