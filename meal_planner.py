@@ -18,8 +18,6 @@ class Macro:
         self.value = value
 
     def update_value(self, factor):
-        print(type(self.value))
-        print(type(factor))
         self.value = self.value * factor
         return self
 
@@ -297,16 +295,13 @@ class Day:
     def print_price(self):
         total_price = 0
         price_csv = pd.read_csv('keto-price.csv', header=None, sep='\t')
-        print('Price')
+        print('\nPrice')
         print('-----')
         for meal in self.get_meal_list():
             meal_price = 0
             for ingr in meal.get_ingredient_list():
-                if ingr.get_quantity() < 0:
-                    quantity_prop = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,1].values[0] * ingr.get_quantity()
-                else:
-                    quantity_prop = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,1].values[0] / ingr.get_quantity()
-                price = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,2].values[0] / quantity_prop
+                factor = ingr.get_quantity() / price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,1].values[0]
+                price = price_csv[price_csv.iloc[:,0] == ingr.get_name()].iloc[:,2].values[0] * factor
                 meal_price += price
             print('{0}: £{1:.2f}'.format(meal.__str__(), meal_price))
             total_price += meal_price
