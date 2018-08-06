@@ -222,7 +222,7 @@ class Day:
         self.print_percentages(total_nutri)
         if self.show_micros:
             self.print_micros(total_micros)
-            print('Micros goals: sodium: [3000, 5000], potassium: +47000, magnesium: +400mg')
+            print('Micros goals: sodium: [3000, 5000]mg, potassium: +4700mg, magnesium: +400mg')
         if self.show_price:
             self.print_price()
 
