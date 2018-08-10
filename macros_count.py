@@ -12,4 +12,4 @@ nandos_day = Day('Nandos day', [lunch_2, dinner_2], show_micros=True, show_price
 app_lunch = Meal('Lunch', appleton_1, is_keto=True)
 app_dinner = Meal('Dinner', appleton_2, is_keto=True)
 appleton_day = Day('Appleton day', [app_lunch, app_dinner], show_micros=True, show_price=True)
-appleton_day.get_nutrition()
+keto_day.get_nutrition()

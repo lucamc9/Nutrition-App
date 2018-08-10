@@ -1,8 +1,8 @@
 from meal_planner import *
 
 # 1 Standard work day
-lunch_ingr_1 = [('Egg', 2),
-('ParmesanCheese', 50),
+lunch_ingr_1 = [('Egg', 4),
+('ParmesanCheese', 30),
 ('Spinach', 50),
 ('Kale', 50),
 ('KalaOlives', 35),
@@ -14,14 +14,14 @@ lunch_ingr_1 = [('Egg', 2),
 
 dinner_ingr_1 = [('TunaSunOil', 1),
 ('Avocado', 170),
-('PistachiosSalted', 30),
+('PistachiosSalted', 15),
 ('SunflowerSeeds', 30),
 ('Spinach', 50),
 ('Kale', 50),
 ('Oil', 15),
 ('ParmesanCheese', 30),
 ('Blueberries', 25),
-('Salt', 2)]
+('Salt', 3)]
 
 # 2 Saturday & Sundays
 lunch_ingr_2 = [('RoastChicken', 0.25),
@@ -76,7 +76,7 @@ appleton_1 = [('Spinach', 100),
 ('Olives', 35),
 ('Avocado', 170),
 ('SunflowerSeeds', 30),
-('AlmondsSalted', 15),
+('Almonds', 15),
 ('Oil', 20),
 ('BaconTesco', 35),
 ('RoastBeefTesco', 45),
@@ -90,6 +90,5 @@ appleton_2 = [('Spinach', 100),
 ('RoastBeefTesco', 45),
 ('Oil', 20),
 ('Salt', 2),
-('AlmondsSalted', 15),
-('Jerky', 35),
+('Almonds', 15),
 ]
